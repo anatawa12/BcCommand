@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "bc-command",
+    "name": "Bc Command",
+    "description": "adds /bc command, helper command to make roads",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/anatawa12/BcCommand",
+    "updateUrl": "",
+    "authorList": ["anatawa12"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
