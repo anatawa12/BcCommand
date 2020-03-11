@@ -16,7 +16,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 object CommandBc : CommandBase() {
-    override fun getName(): String = "bc"
+    override fun getName(): String = "//bc"
 
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
         val player = getCommandSenderAsPlayer(sender)
@@ -107,7 +107,7 @@ object CommandBc : CommandBase() {
         }
     }
 
-    override fun getUsage(sender: ICommandSender): String = "/bc <per blocks> <offset> [keep] [force] [line] [rtm]"
+    override fun getUsage(sender: ICommandSender): String = "///bc <per blocks> <offset> [keep] [force] [line] [rtm]"
 
     override fun getRequiredPermissionLevel(): Int = 0
 

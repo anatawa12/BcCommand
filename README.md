@@ -1,6 +1,6 @@
 # BcCommand
 
-adds `/bc` command. helps to make roads.
+adds `///bc` command. helps to make roads.
 this mod is a clone of the script: [BezierCurveScript (nicovideo)](https://www.nicovideo.jp/watch/sm31993546)
 
 # how to use
@@ -17,7 +17,7 @@ you have to use command to get it
 you can undo with `///undo` and redo with `///redo`
 
 ## `bc` command
-`/bc <per blocks> <offset> [keep] [force] [line] [rtm]`
+`///bc <per blocks> <offset> [keep] [force] [line] [rtm]`
 
 `<per blocks>` \
 : **optional** places at specified intervals. defaults 0 (as possible as small interval)
