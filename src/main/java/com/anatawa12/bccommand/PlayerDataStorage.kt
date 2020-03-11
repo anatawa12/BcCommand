@@ -61,6 +61,13 @@ object PlayerDataStorage {
             Network.sendToClient(player, ShareYourRegion(worldId, first, second))
         }
 
+        fun clearSelection(player: EntityPlayerMP) {
+            first = null
+            second = null
+            worldId = null
+            shareRegionData(player)
+        }
+
         private class UndoRedoPair(
                 var undo: List<BlockSnapshot>,
                 val redo: UndoReplacer.() -> Unit
@@ -105,6 +112,8 @@ object PlayerDataStorage {
         else
             data.shareRegionData(player)
     }
+
+    fun clearSelection(player: EntityPlayerMP) = players[player.persistentID]?.clearSelection(player)
 
     class BlockRegion(
             val world: World,

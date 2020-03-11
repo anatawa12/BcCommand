@@ -33,6 +33,7 @@ class BcCommandCore {
         event.registerServerCommand(CommandBc)
         event.registerServerCommand(CommandRedo)
         event.registerServerCommand(CommandUndo)
+        event.registerServerCommand(CommandClear)
     }
 
     @SubscribeEvent
