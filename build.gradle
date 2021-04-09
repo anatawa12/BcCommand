@@ -155,7 +155,7 @@ task proguard(type: ProGuardTask, dependsOn: shadowJar) {
     outjars("$project.buildDir/proguarded/${jar.archiveFileName.get()}")
 
     // Shrinkしないクラス
-    keepattributes("SourceFile, SourceDir, LineNumberTable, " +
+    keepattributes("Signature, SourceFile, SourceDir, LineNumberTable, " +
             "LocalVariableTable, LocalVariableTypeTable, Synthetic, EnclosingMethod, " +
             "RuntimeVisibleAnnotations, RuntimeInvisibleAnnotations, " +
             "RuntimeVisibleParameterAnnotations, RuntimeInvisibleParameterAnnotations, " +
