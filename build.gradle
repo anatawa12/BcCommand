@@ -155,6 +155,11 @@ task proguard(type: ProGuardTask, dependsOn: shadowJar) {
     outjars("$project.buildDir/proguarded/${jar.archiveFileName.get()}")
 
     // Shrinkしないクラス
+    keepattributes("SourceFile, SourceDir, LineNumberTable, " +
+            "LocalVariableTable, LocalVariableTypeTable, Synthetic, EnclosingMethod, " +
+            "RuntimeVisibleAnnotations, RuntimeInvisibleAnnotations, " +
+            "RuntimeVisibleParameterAnnotations, RuntimeInvisibleParameterAnnotations, " +
+            "AnnotationDefault, InnerClasses")
     keep("class com.anatawa12.bccommand.** { *; }")
     keepnames "class * { *; } "
     keepnames "interface * { *; } "
