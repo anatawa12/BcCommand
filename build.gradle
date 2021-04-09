@@ -1,11 +1,15 @@
+import proguard.gradle.ProGuardTask
+
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        google()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath 'com.guardsquare:proguard-gradle:7.0.0'
     }
 }
 
@@ -73,6 +77,11 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    shadow
+    implementation.extendsFrom shadow
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:$forgeVersion"
 
@@ -118,9 +127,10 @@ jar.dependsOn shadowJar
 
 shadowJar {
     archiveClassifier.set("")
-    relocate("kotlin", "com.anatawa12.bccommand.kotlin")
-    include "com/anatawa12/**/*", "kotlin/**/*"
+    relocate("kotlin", "com.anatawa12.bccommand_kotlin")
+    include "com/anatawa12/**/*", "kotlin/**/*", "assets/**/*", "mcmod.info"
     includeEmptyDirs = false
+    exclude("**/*.kotlin_metadata")
 
     project.configurations.shade.forEach { dep ->
         from(project.zipTree(dep)) {
@@ -129,5 +139,34 @@ shadowJar {
         }
     }
 }
+
+task proguard(type: ProGuardTask, dependsOn: shadowJar) {
+    def javaHome = System.getProperty('java.home')
+
+    // Shrink対象のJAR
+    injars provider { configurations.shadow.files }
+    injars shadowJar.archiveFile
+
+    libraryjars files(
+            "${javaHome}/lib/rt.jar",  // Java SEランタイム
+            "${javaHome}/lib/jce.jar"  // cryptoモジュール
+    )
+
+    outjars("$project.buildDir/proguarded/${jar.archiveFileName.get()}")
+
+    // Shrinkしないクラス
+    keep("class com.anatawa12.bccommand.** { *; }")
+    keepnames "class * { *; } "
+    keepnames "interface * { *; } "
+
+    dontwarn("com.anatawa12.**")
+}
+
+task moveProguarded(type: Copy, dependsOn: proguard) {
+    from proguard.outJarFiles.first()
+    into jar.destinationDirectory
+}
+
+jar.dependsOn moveProguarded
 
 jar.finalizedBy('reobfJar')
