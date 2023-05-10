@@ -7,7 +7,7 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.util.text.TextComponentTranslation
 
 object CommandRedo : CommandBase() {
-    override fun getName(): String = "//redo"
+    override fun getName(): String = BcCommandCore.commandName("redo")
 
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
         val redo = PlayerDataStorage.redo(getCommandSenderAsPlayer(sender))
@@ -16,5 +16,5 @@ object CommandRedo : CommandBase() {
         sender.sendMessage(TextComponentTranslation("redid"))
     }
 
-    override fun getUsage(sender: ICommandSender): String = "///undo"
+    override fun getUsage(sender: ICommandSender): String = BcCommandCore.commandUsage("redo")
 }

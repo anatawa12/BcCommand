@@ -6,6 +6,7 @@ import net.minecraft.item.Item
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.Mod
@@ -26,6 +27,13 @@ class BcCommandCore {
         if (event.side == Side.CLIENT) {
             ModelLoader.setCustomModelResourceLocation(SelectionWand, 0, ModelResourceLocation("minecraft:wooden_axe#inventory"))
         }
+
+        val cfg = Configuration(event.suggestedConfigurationFile);
+        cfg.load()
+        val slashCount = cfg.getInt("slash-count", "commands", 3, 1, Int.MAX_VALUE, 
+            "count of slash for each bc command. if it's 3, you can use bc command with '///bc'")
+        registerPrefixSlash = "/".repeat(slashCount-1)
+        cfg.save()
     }
 
     @Mod.EventHandler
@@ -73,5 +81,10 @@ class BcCommandCore {
         lateinit var proxy: BcCommandProxy
 
         const val MOD_ID = "bc-command"
+
+        private var registerPrefixSlash: String = "//"
+
+        fun commandName(name: String) = registerPrefixSlash + name
+        fun commandUsage(name: String) = '/' + registerPrefixSlash + name
     }
 }

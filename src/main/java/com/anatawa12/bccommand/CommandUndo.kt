@@ -7,7 +7,7 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.util.text.TextComponentTranslation
 
 object CommandUndo : CommandBase() {
-    override fun getName(): String = "//undo"
+    override fun getName(): String = BcCommandCore.commandName("undo")
 
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
         val undo = PlayerDataStorage.undo(getCommandSenderAsPlayer(sender))
@@ -20,5 +20,5 @@ object CommandUndo : CommandBase() {
         sender.sendMessage(TextComponentTranslation("undid"))
     }
 
-    override fun getUsage(sender: ICommandSender): String = "///undo"
+    override fun getUsage(sender: ICommandSender): String = BcCommandCore.commandUsage("undo")
 }

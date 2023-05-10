@@ -1,7 +1,6 @@
 package com.anatawa12.bccommand
 
 import com.anatawa12.bccommand.BcCommandCore.Companion.MOD_ID
-import com.anatawa12.bccommand.BlockPlateRegion.Companion.fromRegion
 import net.minecraft.command.*
 import net.minecraft.init.Blocks
 import net.minecraft.server.MinecraftServer
@@ -16,7 +15,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 object CommandBc : CommandBase() {
-    override fun getName(): String = "//bc"
+    override fun getName(): String = BcCommandCore.commandName("bc")
 
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
         val player = getCommandSenderAsPlayer(sender)
@@ -107,7 +106,8 @@ object CommandBc : CommandBase() {
         }
     }
 
-    override fun getUsage(sender: ICommandSender): String = "///bc <per blocks> <offset> [keep] [force] [line] [rtm]"
+    override fun getUsage(sender: ICommandSender): String = 
+        BcCommandCore.commandUsage("bc") + " <per blocks> <offset> [keep] [force] [line] [rtm]"
 
     override fun getRequiredPermissionLevel(): Int = 0
 
